@@ -4,7 +4,7 @@ import com.spring.task.Country.Entity.CountryEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class CompanyEntity {
@@ -13,7 +13,7 @@ public class CompanyEntity {
     private int id;
     private String name;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "country_id")
     private CountryEntity country;
 
