@@ -128,8 +128,8 @@ src/
 │   │   │   └── Service/CompanyService.java
 │   └── resources/
 └── test/
-    ├── java/com/spring/task/CountryMapperTest.java
-    └── java/com/spring/task/CompanyMapperTest.java
+    ├── java/com/spring/task/Country/CountryMapperTest.java
+    └── java/com/spring/task/Company/CompanyMapperTest.java
 ```
 
 ---
