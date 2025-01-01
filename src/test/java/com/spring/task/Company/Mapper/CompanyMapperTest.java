@@ -5,20 +5,16 @@ import com.spring.task.Company.Entity.CompanyEntity;
 import com.spring.task.Country.Dto.CountryDto;
 import com.spring.task.Country.Entity.CountryEntity;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class CompanyMapperTest {
 
-    @Mock
-    private CompanyMapper companyMapper;
-
-    public CompanyMapperTest() {
-        MockitoAnnotations.openMocks(this);
-    }
+    private static final Logger log = LoggerFactory.getLogger(CompanyMapperTest.class);
+    private final CompanyMapper companyMapper = Mappers.getMapper(CompanyMapper.class);
 
     @Test
     void testToCompanyDto() {
@@ -30,11 +26,11 @@ public class CompanyMapperTest {
         CountryEntity countryEntity = new CountryEntity();
         countryEntity.setId(1);
         countryEntity.setIsoCode("US");
+
         companyEntity.setCountry(countryEntity);
 
+        // Expected CompanyDto
         CompanyDto expectedCompanyDto = new CompanyDto(1, "Company", new CountryDto(1, "US"));
-
-        when(companyMapper.toCompanyDto(companyEntity)).thenReturn(expectedCompanyDto);
 
         // Act
         CompanyDto companyDto = companyMapper.toCompanyDto(companyEntity);
@@ -46,9 +42,6 @@ public class CompanyMapperTest {
         assertNotNull(companyDto.country());
         assertEquals(1, companyDto.country().id());
         assertEquals("US", companyDto.country().name());
-
-        // Verify
-        verify(companyMapper, times(1)).toCompanyDto(companyEntity);
     }
 
     @Test
@@ -66,8 +59,6 @@ public class CompanyMapperTest {
         countryEntity.setIsoCode("US");
         expectedCompanyEntity.setCountry(countryEntity);
 
-        when(companyMapper.toCompanyEntity(companyDto)).thenReturn(expectedCompanyEntity);
-
         // Act
         CompanyEntity companyEntity = companyMapper.toCompanyEntity(companyDto);
 
@@ -78,8 +69,5 @@ public class CompanyMapperTest {
         assertNotNull(companyEntity.getCountry());
         assertEquals(1, companyEntity.getCountry().getId());
         assertEquals("US", companyEntity.getCountry().getIsoCode());
-
-        // Verify
-        verify(companyMapper, times(1)).toCompanyEntity(companyDto);
     }
 }
